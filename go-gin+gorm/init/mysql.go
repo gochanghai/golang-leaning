@@ -8,6 +8,7 @@ import (
 
 var Eloquent *gorm.DB
 
+// mysql 数据库初始化
 func init() {
 	var err error
 	// root:root ==>> 用户名:密码
