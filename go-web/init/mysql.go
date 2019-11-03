@@ -12,7 +12,7 @@ var Eloquent *gorm.DB
 func init() {
 	var err error
 	// root:root ==>> 用户名:密码
-	Eloquent, err = gorm.Open("mysql", "root:root@tcp(www.gochanghai.com:3306)/eladmin?charset=utf8&parseTime=True&loc=Local&timeout=10ms")
+	Eloquent, err = gorm.Open("mysql", "root:root@tcp(119.23.105.191:3306)/go_leaning?charset=utf8")
 
 	if err != nil {
 		fmt.Printf("mysql connect error %v", err)

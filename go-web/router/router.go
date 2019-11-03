@@ -1,9 +1,8 @@
 package router
 
-
 import (
-	. "../apis"
 	"github.com/gin-gonic/gin"
+	. "golang-leaning/go-web/apis"
 )
 
 func InitRouter() *gin.Engine {

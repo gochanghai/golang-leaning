@@ -1,12 +1,12 @@
 package main
 
 import (
-	orm "./init"
-	"./router"
+	orm "golang-leaning/go-web/init"
+	"golang-leaning/go-web/router"
 )
 
 func main() {
 	defer orm.Eloquent.Close()
 	router := router.InitRouter()
-	_ = router.Run(":8080")
+	router.Run(":8080")
 }

@@ -1,6 +1,6 @@
 package models
 
-import orm "../init"
+import orm "golang-leaning/go-web/init"
 
 // 用户结构体
 type User struct {
@@ -8,6 +8,7 @@ type User struct {
 	Username string `json:"username"` // 列名为 `username`
 	Password string `json:"password"` // 列名为 `password`
 }
+
 // 用户数组
 var Users []User
 
@@ -24,7 +25,7 @@ func (user User) Insert() (id int64, err error) {
 
 	//添加数据
 	result := orm.Eloquent.Create(&user)
-	id =user.ID
+	id = user.ID
 	if result.Error != nil {
 		err = result.Error
 		return
