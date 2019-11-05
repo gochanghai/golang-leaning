@@ -7,8 +7,7 @@ import (
 
 func InitRouter() *gin.Engine {
 	router := gin.Default()
-
 	router.POST("/uploadFile", UploadFile)
-
+	router.POST("/download", DownloadFile)
 	return router
 }

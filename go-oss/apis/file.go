@@ -10,7 +10,9 @@ import (
 	"os"
 )
 
-/**上传方法**/
+var aliyunOSS service.AliyunOSS
+
+/** 上传方法 **/
 func UploadFile(c *gin.Context) {
 	//得到上传的文件
 	//file这个是uplaodify参数定义中的   'fileObjName':'file'
@@ -36,7 +38,16 @@ func UploadFile(c *gin.Context) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	var aliyunOSS service.AliyunOSS
 	aliyunOSS.UploadFile(filePath)
 	c.String(http.StatusCreated, "upload successful")
+}
+
+/** 下载文件 */
+func DownloadFile(c *gin.Context) {
+	filePath := c.PostForm("filePath")
+	downloadedFile := aliyunOSS.DownloadFile(filePath)
+	//对下载的文件重命名
+	c.Writer.Header().Add("Content-Disposition", fmt.Sprintf("attachment; filename=%s", downloadedFile))
+	c.Writer.Header().Add("Content-Type", "application/octet-stream")
+	c.File(downloadedFile)
 }

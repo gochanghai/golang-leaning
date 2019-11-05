@@ -72,8 +72,8 @@ func (aliyunOSS AliyunOSS) UploadFile(filePath string) {
 }
 
 // 下载文件
-func downloadedFile() {
-	var downloadedFileName = ""
+func (aliyunOSS AliyunOSS) DownloadFile(filePath string) string {
+	localFile := strings.Split(filePath, "/")[1]
 	// 创建OSSClient实例。
 	client, err := oss.New(endpoint, accessKeyId, accessKeySecret)
 	if err != nil {
@@ -85,8 +85,10 @@ func downloadedFile() {
 		handleError(err)
 	}
 	// 下载文件。
-	err = bucket.GetObjectToFile(objectName, downloadedFileName)
+	err = bucket.GetObjectToFile(filePath, localFile)
 	if err != nil {
 		handleError(err)
 	}
+	return localFile
+
 }
