@@ -3,14 +3,15 @@ package apis
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"golang-leaning/go-oss/service"
 	"io"
 	"log"
 	"net/http"
 	"os"
-	"golang-leaning/go-qiniu-oss/service"
 )
+
 /**上传方法**/
-func UploadFile(c *gin.Context){
+func UploadFile(c *gin.Context) {
 	//得到上传的文件
 	//file这个是uplaodify参数定义中的   'fileObjName':'file'
 	file, header, err := c.Request.FormFile("file")
@@ -22,18 +23,20 @@ func UploadFile(c *gin.Context){
 	filename := header.Filename
 
 	fmt.Println(file, err, filename)
+	filePath := filename
 	//创建文件
-	out, err := os.Create("static/uploadfile/"+filename)
+	out, err := os.Create(filePath)
 	//注意此处的 static/uploadfile/ 不是/static/uploadfile/
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer out.Close()
 	// 把文件上传到指定目录
-	//_, err = io.Copy(out, file)
-	service.AliyunOSS.UploadFile()
+	_, err = io.Copy(out, file)
 	if err != nil {
 		log.Fatal(err)
 	}
+	var aliyunOSS service.AliyunOSS
+	aliyunOSS.UploadFile(filePath)
 	c.String(http.StatusCreated, "upload successful")
 }

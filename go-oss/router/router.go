@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	. "golang-leaning/go-qiniu-oss/apis"
+	. "golang-leaning/go-oss/apis"
 )
 
 func InitRouter() *gin.Engine {

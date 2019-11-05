@@ -13,23 +13,23 @@ import (
 var (
 	accessKey = "e0tgfo2PWicIByumNbofbvPFpJKe3aMAMNHvWnF1"
 	secretKey = "eA3qQKKeyp3clgCFlYFCZq4cuSPUwDxnW_ayRF1-"
-	bucket = "2199-temp"
-	path = "q06tnjwyn.bkt.clouddn.com"
+	bucket    = "2199-temp"
+	path      = "q06tnjwyn.bkt.clouddn.com"
 )
 
 // 自定义返回值结构体
 type MyPutRet struct {
 	Key    string `json:"key"`
 	Hash   string `json:"hash"`
-	Fsize  int `json:"size"`
+	Fsize  int    `json:"size"`
 	Bucket string `json:"bucket"`
 	Name   string `json:"name"`
 }
 
 // 上传文件
-func uploadFile(file string)  {
+func UploadFile(file string) {
 	putPolicy := storage.PutPolicy{
-		Scope: bucket,
+		Scope:      bucket,
 		ReturnBody: `{"key":"$(key)","hash":"$(etag)","fsize":$(fsize),"bucket":"$(bucket)","name":"$(x:name)"}`,
 	}
 
