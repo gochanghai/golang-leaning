@@ -5,6 +5,7 @@ import (
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -35,7 +36,7 @@ func handleError(err error) {
 // 上传文件
 func (aliyunOSS AliyunOSS) UploadFile(filePath string) {
 	sce := strings.Split(filePath, ".")
-	objectName = string(time.Now().UnixNano()) + "." + sce[1]
+	objectName = strconv.FormatInt(time.Now().Unix(), 10) + "." + sce[1]
 	// 创建OSSClient实例。
 	client, err := oss.New(endpoint, accessKeyId, accessKeySecret)
 	if err != nil {
@@ -46,6 +47,7 @@ func (aliyunOSS AliyunOSS) UploadFile(filePath string) {
 	if err != nil {
 		handleError(err)
 	}
+	log.Println("上传文件: ", objectName)
 	// 读取本地文件。
 	fd, err := os.Open(filePath)
 	if err != nil {
@@ -59,6 +61,14 @@ func (aliyunOSS AliyunOSS) UploadFile(filePath string) {
 		handleError(err)
 	}
 	log.Println("文件上传成功")
+	derr := os.Remove(filePath)
+	if derr != nil {
+		// 删除失败
+		log.Println("文件删除失败")
+	} else {
+		// 删除成功
+		log.Println("文件删除成功")
+	}
 }
 
 // 下载文件
