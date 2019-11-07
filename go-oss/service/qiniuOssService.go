@@ -59,3 +59,9 @@ func (qiniuOSS QiniuOSS) UploadFile(filePath string) {
 	}
 	fmt.Println(ret.Bucket, ret.Key, ret.Fsize, ret.Hash, ret.Name)
 }
+
+// 下载文件
+func (qiniuOSS QiniuOSS) DownloadFile(filePath string) string {
+	var filename = ""
+	return filename
+}
