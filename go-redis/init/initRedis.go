@@ -1,20 +1,19 @@
 package init
 
 import (
-	"flag"
 	"github.com/garyburd/redigo/redis"
 	"time"
 )
 
 //声明一些全局变量
 var (
-	pool          *redis.Pool
-	redisServer   = flag.String("redisServer", "www.gochanghai.com:6379", "")
-	redisPassword = flag.String("redisPassword", "lch2199.", "")
+	pool     *redis.Pool
+	server   = "www.gochanghai.com:6379"
+	password = "lch2199."
 )
 
 //初始化一个pool
-func initPool(server, password string) *redis.Pool {
+func InitPool() *redis.Pool {
 	return &redis.Pool{
 		MaxIdle:     3, /*最大的空闲连接数*/
 		MaxActive:   5, /*最大的激活连接数*/
